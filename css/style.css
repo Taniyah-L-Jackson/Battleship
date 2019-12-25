@@ -11,11 +11,17 @@ body {
 
 .tile {
     padding: 0px;
-    height: calc(100%/6 - 4px);
-    width: calc(100%/6 - 4px);
+    height: calc(100%/4 - 4px);
+    width: calc(100%/4 - 4px);
     background: rgb(6, 35, 221);
     border: 2px solid black;
     float: left;
+}
+
+.tile:hover {
+    background: url(../media/crosshairBlack.png);
+    /* background: url(../media/crosshairRed.png); */
+    
 }
 
 .drop {
@@ -54,3 +60,4 @@ button {
 button:hover {
     background: rgb(7, 83, 0);
 }
+

@@ -1,10 +1,10 @@
 //establish variables for gameboard
 let gameboard = document.getElementById('gameboard')
-let hit = document.getElementById('win_flash')
-gameboardSize = 36
+let win_statement = document.getElementById('win_flash')
+gameboardSize = 16
 gameboard.classList.add('gameboard')
 let winner = false //user has not won yet
-//-----------------------------------------------------
+//-------------------------------------------------
 
 //for gameboard start
 for (let i = 0; i < gameboardSize; i++) {
@@ -33,7 +33,15 @@ for (let i = 0; i < (gameboardSize - 1); i++) {
 colorChange.push(explosion)
 
 //------------------------------------------------
+//Count how many tries are left
 
+//add a counter
+var counter = Math.sqrt(gameboardSize) + 3;
+
+//display countdown (Startoff)
+win_statement.innerText = 'Moves Left: ' + counter;
+
+//---------------------------------------------------
 //function for tiles
 function changeColor() {
 
@@ -44,13 +52,28 @@ function changeColor() {
 
         //if square is empty, choose random color
         if (this.className == 'tile') { 
-        
+
+            //countdown for each click
+            counter--;
+
+            //display countdown
+            win_statement.innerText = 'Moves Left: ' + counter;
+
+            if (counter == 0) {
+
+                //display once out of moves
+                win_statement.innerText = 'OUT OF MOVES. GAME OVER';
+
+                //destroy function once 0 is reaches
+                winner = true
+            }
+                
             if (random == explosion) {
 
                 //if color is explosion, END GAME
                 winner = true
                 this.classList.add('explosion')
-                hit.innerText = 'Enemy Destroyed!'
+                win_statement.innerText = 'Enemy Destroyed!'
                 
             }else{
                 
@@ -69,8 +92,10 @@ function changeColor() {
             return;
         }
 
-    } else { //user stops playing if they won
-        return
+    } else { //user stops playing if they won or out of moves
+        
+        return;
+        
     }
     
     //this refers to the word 'tile'
@@ -91,11 +116,17 @@ function resetGame() {
 
         boardClear.classList.remove('drop')
         boardClear.classList.remove('explosion')
-        hit.innerText = ''
+        win_statement.innerText = ''
 
     }
 
     //reset win back to false
     winner = false
+
+    //reset counter
+    counter = Math.sqrt(gameboardSize) + 3;
+    win_statement.innerText = 'Moves Left: ' + counter;
     
 }
+
+//counter = sqrt of gameboard + 3
